@@ -1,0 +1,19 @@
+{
+    "name": "@cloudomium/middleware",
+    "version": "0.0.1-development",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "prebuild": "npm run clean",
+        "build": "tsc",
+        "clean": "rm -rf dist",
+        "test": "chmod +x ./run-tests.sh && ./run-tests.sh"
+    },
+    "devDependencies": {
+        "@types/node": "~22",
+        "ts-node": "~10",
+        "typescript": "~5"
+    },
+    "dependencies": {
+    }
+}

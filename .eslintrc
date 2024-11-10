@@ -1,0 +1,65 @@
+{
+    "ignorePatterns": [
+        "dist",
+        ".prettierc"
+    ],
+    "settings": {
+        "import/extensions": [".js", ".ts"],
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true,
+                "project": "./tsconfig.json"
+            }
+        }
+    },
+    "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:import/typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:unicorn/recommended"
+    ],
+    "parserOptions": {
+        "project": ["./tsconfig.json"]
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "unicorn"],
+    "rules": {
+        "class-methods-use-this": "off",
+        "no-await-in-loop": "off",
+        "no-param-reassign": "off",
+        "object-curly-newline": "off",
+        "operator-linebreak": "off",
+        "@typescript-eslint/no-param-reassign": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/require-await": "off",
+        "import/no-unresolved": "error",
+        "@typescript-eslint/semi": "off",
+        "@typescript-eslint/no-unnecessary-type-constraint": "off",
+        "implicit-arrow-linebreak": "off",
+        "max-len": ["error", 160],
+        "no-continue": "off",
+        "no-console": "off",
+        "unicorn/prefer-switch": "off",
+        "no-restricted-syntax": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-plusplus": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-redeclare": "off",
+        "import/no-relative-packages": "off",
+        "import/prefer-default-export": "off",
+        "import/no-cycle": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "unicorn/prefer-module": "off",
+        "unicorn/no-array-reduce": "off",
+        "@typescript-eslint/no-unsafe-call": "off", // https://github.com/typescript-eslint/typescript-eslint/issues/2109,
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unnecessary-type-assertion": "off"
+    }
+}
