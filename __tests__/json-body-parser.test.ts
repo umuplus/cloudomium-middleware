@@ -1,7 +1,7 @@
 import jsonMiddleware from '../src/middlewares/json-body-parser'
 
-import assert from 'node:assert/strict';
-import { test } from 'node:test';
+import assert from 'node:assert/strict'
+import { test } from 'node:test'
 
 test('json body parser middleware simple', async () => {
     const middleware = await jsonMiddleware()
