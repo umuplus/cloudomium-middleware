@@ -1,5 +1,8 @@
+import { unzipSync } from 'zlib'
+
 export interface JsonMiddlewareConfig {
     base64?: boolean
+    compressed?: boolean
 }
 
 /**
@@ -10,7 +13,8 @@ export interface JsonMiddlewareConfig {
  */
 export default async function (config: JsonMiddlewareConfig = {}) {
     return async (event: any, _context: any): Promise<void> => {
-        const body = config.base64 ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body || '{}'
-        event.body = JSON.parse(body)
+        let body = config.base64 ? Buffer.from(event.body, 'base64') : event.body || '{}'
+        if (config.compressed) body = unzipSync(body)
+        event.body = JSON.parse(body.toString())
     }
 }
