@@ -1,10 +1,10 @@
-# Cloudomium
+# Cloudomium Middleware
 
 This project is a set of tools for easier serverless development on AWS Lambda.
 
 ## Middleware Engine for AWS Lambda
 
-The middleware engine **CloudomiumLambda** provides methods for adding set of function in front of handler, as well as the afterwards.
+The middleware engine **CloudomiumLambda** provides methods for adding set of functions in front of the handler, as well as the afterwards.
 
 ### Before / After The Lambda Handler
 
@@ -105,7 +105,7 @@ const handler = new CloudomiumLambda()
     })
 ```
 
-### Validator
+### HTTP Validator
 
 This middleware adds a validation support for input and / or output data
 
