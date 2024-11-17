@@ -5,14 +5,14 @@ import { test } from 'node:test'
 import { gzipSync } from 'node:zlib'
 
 test('json body parser middleware simple', async () => {
-    const middleware = await jsonMiddleware()
+    const middleware = jsonMiddleware()
     const request: Record<string, any> = { body: JSON.stringify({ val: 'test' }) }
     await middleware(request, null)
     assert.equal(request.body.val, 'test')
 })
 
 test('json body parser middleware base64 only', async () => {
-    const middleware = await jsonMiddleware({ base64: true })
+    const middleware = jsonMiddleware({ base64: true })
     const request: Record<string, any> = { body: Buffer.from(JSON.stringify({ val: 'test' })).toString('base64') }
     await middleware(request, null)
     assert.equal(request.body.val, 'test')
@@ -21,14 +21,14 @@ test('json body parser middleware base64 only', async () => {
 test('json body parser middleware with compressed', async () => {
     const payload = JSON.stringify({ val: 'test' })
     const compressedPayload = gzipSync(payload).toString('base64')
-    const middleware = await jsonMiddleware({ compressed: true, base64: true })
+    const middleware = jsonMiddleware({ compressed: true, base64: true })
     const request: Record<string, any> = { body: compressedPayload }
     await middleware(request, null)
     assert.equal(request.body.val, 'test')
 })
 
 test('json body parser middleware base64 error', async () => {
-    const middleware = await jsonMiddleware({ base64: true })
+    const middleware = jsonMiddleware({ base64: true })
     const request: Record<string, any> = { body: Buffer.from('xyz').toString('base64') }
     try {
         await middleware(request, null)

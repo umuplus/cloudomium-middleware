@@ -78,3 +78,5 @@ export class CloudomiumLambda<CE = unknown, CC = unknown, CR = unknown> {
         }
     }
 }
+
+export * from './middlewares'

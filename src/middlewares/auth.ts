@@ -32,7 +32,7 @@ function verifyToken(token: string, secret: string, config: AuthMiddlewareConfig
  * @param [config.check] - Function to check the claims
  * @returns A middleware function that authenticates the token
  */
-export default async function (config: AuthMiddlewareConfig) {
+export default function (config: AuthMiddlewareConfig) {
     const { check, header, mustSignedIn, secret } = config
     return async (event: any, context: any): Promise<void> => {
         let accessToken = event.headers?.[header || 'authorization']

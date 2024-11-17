@@ -14,7 +14,7 @@ export interface CorsMiddlewareConfig {
  * @param [config.credentials] A boolean to indicate if credentials are allowed.
  * @returns A middleware function that sets the appropriate CORS headers in the response.
  */
-export default async function (config: CorsMiddlewareConfig = {}) {
+export default function (config: CorsMiddlewareConfig = {}) {
     const { origins, headers, methods, credentials } = config
     return async (_event: any, _context: any, response: any): Promise<void> => {
         if (!response.headers) response.headers = {}

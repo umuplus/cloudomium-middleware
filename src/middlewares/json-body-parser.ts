@@ -11,7 +11,7 @@ export interface JsonMiddlewareConfig {
  * @param [config.base64] A boolean to indicate if the body is base64 encoded.
  * @returns A middleware function that parses the request body as JSON.
  */
-export default async function (config: JsonMiddlewareConfig = {}) {
+export default function (config: JsonMiddlewareConfig = {}) {
     return async (event: any, _context: any): Promise<void> => {
         let body = config.base64 ? Buffer.from(event.body, 'base64') : event.body || '{}'
         if (config.compressed) body = unzipSync(body)

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
 test('cors middleware origins', async () => {
-    const middleware = await corsMiddleware({
+    const middleware = corsMiddleware({
         origins: ['http://localhost:3000'],
     })
     const response: Record<string, any> = { statusCode: 200 }
@@ -16,7 +16,7 @@ test('cors middleware origins', async () => {
 })
 
 test('cors middleware full', async () => {
-    const middleware = await corsMiddleware({
+    const middleware = corsMiddleware({
         origins: ['http://localhost:3000', 'http://localhost:3001'],
         methods: ['GET', 'POST'],
         headers: ['Content-Type', 'Authorization'],

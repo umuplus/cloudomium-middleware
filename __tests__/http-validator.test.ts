@@ -6,7 +6,7 @@ import { z, ZodError } from 'zod'
 
 test('http validator middleware body fails', async () => {
     const TestModel = z.object({ name: z.string().min(3) })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         body: TestModel,
         onError: async (error, type) => {
             assert.equal(type, 'body')
@@ -19,7 +19,7 @@ test('http validator middleware body fails', async () => {
 
 test('http validator middleware body success', async () => {
     const TestModel = z.object({ name: z.string().min(3), additionalNumber: z.number().nonnegative().default(2) })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         body: TestModel,
         onError: async (_error, _type) => {
             new Error('Should not be called')
@@ -32,7 +32,7 @@ test('http validator middleware body success', async () => {
 
 test('http validator middleware query string fails', async () => {
     const TestModel = z.object({ name: z.string().min(3) })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         queryString: TestModel,
         onError: async (error, type) => {
             assert.equal(type, 'queryString')
@@ -45,7 +45,7 @@ test('http validator middleware query string fails', async () => {
 
 test('http validator middleware query string success', async () => {
     const TestModel = z.object({ name: z.string().min(3), additionalNumber: z.string().default('2') })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         queryString: TestModel,
         onError: async (_error, _type) => {
             new Error('Should not be called')
@@ -58,7 +58,7 @@ test('http validator middleware query string success', async () => {
 
 test('http validator middleware path parameters fails', async () => {
     const TestModel = z.object({ name: z.string().min(3) })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         pathParameters: TestModel,
         onError: async (error, type) => {
             assert.equal(type, 'pathParameters')
@@ -71,7 +71,7 @@ test('http validator middleware path parameters fails', async () => {
 
 test('http validator middleware path parameters success', async () => {
     const TestModel = z.object({ name: z.string().min(3), additionalNumber: z.string().default('2') })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         pathParameters: TestModel,
         onError: async (_error, _type) => {
             new Error('Should not be called')
@@ -84,7 +84,7 @@ test('http validator middleware path parameters success', async () => {
 
 test('http validator middleware headers fails', async () => {
     const TestModel = z.object({ name: z.string().min(3) })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         headers: TestModel,
         onError: async (error, type) => {
             assert.equal(type, 'headers')
@@ -97,7 +97,7 @@ test('http validator middleware headers fails', async () => {
 
 test('http validator middleware headers success', async () => {
     const TestModel = z.object({ name: z.string().min(3), additionalNumber: z.string().default('2') })
-    const middleware = await httpValidatorMiddleware({
+    const middleware = httpValidatorMiddleware({
         headers: TestModel,
         onError: async (_error, _type) => {
             new Error('Should not be called')

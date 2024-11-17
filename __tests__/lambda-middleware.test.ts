@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import jwt from 'jsonwebtoken'
-import { authMiddleware, corsMiddleware, httpValidatorMiddleware, jsonBodyParserMiddleware } from '../src/middlewares'
+import { authMiddleware, corsMiddleware, httpValidatorMiddleware, jsonBodyParserMiddleware } from '../src'
 import { CloudomiumLambda } from '../src'
 import { test } from 'node:test'
 import { z } from 'zod'
