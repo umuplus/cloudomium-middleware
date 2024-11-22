@@ -18,9 +18,6 @@ export class CloudomiumHttpLambda<CE = unknown, CC = unknown, CR = unknown> exte
      */
     execute(handler: Handler<CE, CC, CR>, onError?: ErrorHandler<CR>): Handler<CE, CC, CR> {
         return async (event: CE, context: CC): Promise<CR> => {
-            // @ts-ignore
-            context.callbackWaitsForEmptyEventLoop = false
-
             for (const { middleware, onError } of this.onBefore) {
                 try {
                     const result = await middleware(event, context)
