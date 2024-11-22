@@ -1,4 +1,4 @@
-export interface CloudomiumValidatorMiddlewareConfig {
+export interface CloudomiumHttpValidatorMiddlewareConfig {
     body?: any
     queryString?: any
     pathParameters?: any
@@ -17,7 +17,7 @@ export interface CloudomiumValidatorMiddlewareConfig {
  * @param [config.headers] - Zod schema for headers
  * @returns A middleware function that validates api gateway event
  */
-export default function (config: CloudomiumValidatorMiddlewareConfig = {}) {
+export default function (config: CloudomiumHttpValidatorMiddlewareConfig = {}) {
     const { body, queryString, pathParameters, headers, onError } = config
     return async (event: any, _context: any): Promise<void> => {
         if (body) {
