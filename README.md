@@ -6,11 +6,9 @@ This project is a set of opinionated tools for easier serverless development on 
 
 There are different handler classes for various needs, such as **CloudomiumHttpLambda**, **CloudomiumSqsLambda**, etc.
 
-> *Each handler class has methods for setting up middlewares in front of the handler function, as well as afterward.*
-
 ### Before / After The Lambda Handler
 
-There are methods called **before** and **after** in CloudomiumHttpLambda.
+There are methods called **before** and **after** in handler classes.
 These methods add middleware functions to be called right before or right after executing the handler function.
 Usually, the middlewares which added to be called *before* the handler are for processing the request.
 On the other hand, the middlewares which added to be called *after* the handler are for processing the response.
