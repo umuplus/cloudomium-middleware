@@ -1,15 +1,17 @@
 # Cloudomium Middleware
 
-This project is a set of tools for easier serverless development on AWS Lambda.
+This project is a set of opinionated tools for easier serverless development on AWS Lambda.
 
-## Middleware Engine for AWS Lambda
+## Middleware Supported Handlers for AWS Lambda
 
-The middleware engine **CloudomiumLambda** provides methods for adding set of functions in front of the handler, as well as the afterwards.
+There are different handler classes for various needs, such as **CloudomiumHttpLambda**, **CloudomiumSqsLambda**, etc.
+
+> *Each handler class has methods for setting up middlewares in front of the handler function, as well as afterward.*
 
 ### Before / After The Lambda Handler
 
-There are methods called **before** and **after** in CloudomiumLambda.
-These method adds middleware functions to be called right before or right after executing the handler function.
+There are methods called **before** and **after** in CloudomiumHttpLambda.
+These methods add middleware functions to be called right before or right after executing the handler function.
 Usually, the middlewares which added to be called *before* the handler are for processing the request.
 On the other hand, the middlewares which added to be called *after* the handler are for processing the response.
 
@@ -26,11 +28,17 @@ To define the handler function, there is a method called **execute**
 | onError | function | false | a function that implements **ErrorHandler** interface |
 
 ```typescript
-const handler = new CloudomiumLambda()
-    .before(await middlewareA())
-    .after(await middlewareB())
+const handler = new CloudomiumHttpLambda()
+    .before(middlewareA())
+    .after(middlewareB())
     .execute(async (event, context) => {
         return { statusCode: 204 }
+    })
+
+const handler = new CloudomiumSqsLambda()
+    .before(middlewareC())
+    .execute(async (event, context) => {
+        return { batchItemFailures: [] }
     })
 ```
 
@@ -55,10 +63,10 @@ While the jwt token is for authentication part, **check** function is for author
 
 ```typescript
 import jwt from 'jsonwebtoken'
-import { CloudomiumLambda } from '@cloudomium/middleware'
+import { CloudomiumHttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumLambda()
-    .before(await authMiddleware({ jwt, secret: 'my secret', mustSignedIn: true }), (error, type) => console.error(type, error))
+const handler = new CloudomiumHttpLambda()
+    .before(authMiddleware({ jwt, secret: 'my secret', mustSignedIn: true }), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
     })
@@ -77,10 +85,10 @@ This middleware adds a simple CORS support to the response.
 | credentials | boolean | false | flag to allow credentials |
 
 ```typescript
-import { CloudomiumLambda } from '@cloudomium/middleware'
+import { CloudomiumHttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumLambda()
-    .before(await corsMiddleware({ origins: ['http://localhost:9000'] }), (error, type) => console.error(type, error))
+const handler = new CloudomiumHttpLambda()
+    .before(corsMiddleware({ origins: ['http://localhost:9000'] }), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
     })
@@ -96,10 +104,10 @@ This middleware adds a support for JSON payload.
 | compressed | boolean | false | flag for gzip compression |
 
 ```typescript
-import { CloudomiumLambda } from '@cloudomium/middleware'
+import { CloudomiumHttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumLambda()
-    .before(await jsonMiddleware(), (error, type) => console.error(type, error))
+const handler = new CloudomiumHttpLambda()
+    .before(jsonMiddleware(), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
     })
@@ -118,11 +126,29 @@ This middleware adds a validation support for input and / or output data
 | onError | function | false | Error handling function |
 
 ```typescript
-import { CloudomiumLambda } from '@cloudomium/middleware'
+import { CloudomiumHttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumLambda()
-    .before(await validate({ body: z.object({ name: z.string() }) }), (error, type) => console.error(type, error))
+const handler = new CloudomiumHttpLambda()
+    .before(validate({ body: z.object({ name: z.string() }) }), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
+    })
+```
+
+### Callback Waits For Empty Event Loop
+
+This middleware manages the context flag for empty event loop behavior
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| wait | boolean | false | wait flag |
+
+```typescript
+import { CloudomiumSqsLambda } from '@cloudomium/middleware'
+
+const handler = new CloudomiumSqsLambda()
+    .before(callbackWaitsForEmptyEventLoopMiddleware(), (error, type) => console.error(type, error))
+    .execute(async (event, context) => {
+        return { batchItemFailures: [] }
     })
 ```
