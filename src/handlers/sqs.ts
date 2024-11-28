@@ -7,7 +7,6 @@ import { SqsBatchEvent, SqsBatchRecord, SqsBatchResponse } from '../types/sqs'
  * Lambda organizer with middleware support for SQS events
  * @class CloudomiumSqsLambda
  * @template CM - Message type
- * @template CE - SQS Event type
  * @template CC - Context type
  * @example new CloudomiumSqsLambda<MyMessage, SqsEvent, Context>()
  */
