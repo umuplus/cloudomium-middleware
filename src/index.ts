@@ -6,6 +6,7 @@ import httpValidatorMiddleware from './middlewares/http-validator'
 
 
 export * from './handlers/http'
+export * from './handlers/kinesis'
 export * from './handlers/sqs'
 
 export {

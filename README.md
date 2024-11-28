@@ -2,13 +2,13 @@
 
 This project is a set of opinionated tools for easier serverless development on AWS Lambda.
 
-## Middleware Supported Handlers for AWS Lambda
+## Middleware Supported Organizers for AWS Lambda
 
-There are different handler classes for various needs, such as **CloudomiumHttpLambda**, **CloudomiumSqsLambda**, etc.
+There are different organizer classes for various needs, such as **CloudomiumHttpLambda**, **CloudomiumSqsLambda**, **CloudomiumKinesisLambda**, etc.
 
 ### Before / After The Lambda Handler
 
-There are methods called **before** and **after** in handler classes.
+There are methods called **before** and **after** in organizer classes.
 These methods add middleware functions to be called right before or right after executing the handler function.
 Usually, the middlewares which added to be called *before* the handler are for processing the request.
 On the other hand, the middlewares which added to be called *after* the handler are for processing the response.
@@ -37,6 +37,12 @@ const handler = new CloudomiumSqsLambda()
     .before(middlewareC())
     .execute(async (event, context) => {
         return { batchItemFailures: [] }
+    })
+
+const handler = new CloudomiumKinesisLambda()
+    .before(middlewareC())
+    .execute(async (event, context) => {
+        // void
     })
 ```
 
