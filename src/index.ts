@@ -5,9 +5,10 @@ import authMiddleware from './middlewares/auth'
 import httpValidatorMiddleware from './middlewares/http-validator'
 
 
-export * from './handlers/http'
-export * from './handlers/kinesis'
-export * from './handlers/sqs'
+export * from './organizers/http'
+export * from './organizers/kinesis'
+export * from './organizers/s3'
+export * from './organizers/sqs'
 
 export * from './types/aws'
 

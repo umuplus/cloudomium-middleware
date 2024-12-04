@@ -33,14 +33,20 @@ const handler = new HttpLambda()
         return { statusCode: 204 }
     })
 
+const handler = new KinesisLambda()
+    .before(middlewareC())
+    .execute(async (event, context) => {
+        // void
+    })
+
 const handler = new SqsLambda()
     .before(middlewareC())
     .execute(async (event, context) => {
         return { batchItemFailures: [] }
     })
 
-const handler = new KinesisLambda()
-    .before(middlewareC())
+const handler = new S3Lambda()
+    .before(middlewareD())
     .execute(async (event, context) => {
         // void
     })
