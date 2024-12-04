@@ -9,6 +9,8 @@ export * from './handlers/http'
 export * from './handlers/kinesis'
 export * from './handlers/sqs'
 
+export * from './types/aws'
+
 export {
     callbackWaitsForEmptyEventLoopMiddleware,
     corsMiddleware,

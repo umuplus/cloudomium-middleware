@@ -4,12 +4,12 @@ import { KinesisBatchEvent, KinesisBatchRecord } from '../types/kinesis'
 
 /**
  * Lambda organizer with middleware support for Kinesis events
- * @class CloudomiumKinesisLambda
+ * @class KinesisLambda
  * @template CM - Message type
  * @template CC - Context type
- * @example new CloudomiumKinesisLambda<MyMessage, KinesisEvent, Context>()
+ * @example new KinesisLambda<MyMessage, Context>()
  */
-export class CloudomiumKinesisLambda<CM = unknown, CC = unknown> extends CloudomiumLambda<KinesisBatchEvent<CM>, CC, void> {
+export class KinesisLambda<CM = unknown, CC = unknown> extends CloudomiumLambda<KinesisBatchEvent<CM>, CC, void> {
     /**
      * Assigns the handler function
      * @param {Handler<CM, CC, void>} handler - Handler to be executed for each record

@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import { callbackWaitsForEmptyEventLoopMiddleware } from '../src'
-import { CloudomiumKinesisLambda } from '../src'
+import { KinesisLambda } from '../src'
 import { test } from 'node:test'
 
 test('kinesis lambda handler with invalid body', async () => {
-    const handler = new CloudomiumKinesisLambda().before(callbackWaitsForEmptyEventLoopMiddleware()).execute(async (_event: any, context: any) => {
+    const handler = new KinesisLambda().before(callbackWaitsForEmptyEventLoopMiddleware()).execute(async (_event: any, context: any) => {
         assert.equal(context.callbackWaitsForEmptyEventLoop, false)
     })
     try {
@@ -16,14 +16,14 @@ test('kinesis lambda handler with invalid body', async () => {
 })
 
 test('kinesis lambda handler with empty records', async () => {
-    const handler = new CloudomiumKinesisLambda().before(callbackWaitsForEmptyEventLoopMiddleware()).execute(async (_event: any, context: any) => {
+    const handler = new KinesisLambda().before(callbackWaitsForEmptyEventLoopMiddleware()).execute(async (_event: any, context: any) => {
         assert.equal(context.callbackWaitsForEmptyEventLoop, false)
     })
     await handler({ Records: [] }, {})
 })
 
 test('kinesis lambda handler with records', async () => {
-    const handler = new CloudomiumKinesisLambda().before(callbackWaitsForEmptyEventLoopMiddleware({ wait: true })).execute(async (event: any, context: any) => {
+    const handler = new KinesisLambda().before(callbackWaitsForEmptyEventLoopMiddleware({ wait: true })).execute(async (event: any, context: any) => {
         assert.equal(context.callbackWaitsForEmptyEventLoop, true)
         assert.equal(event.kinesis.partitionKey, 'part')
         assert.equal(event.kinesis.data.abc, 123)

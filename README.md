@@ -1,10 +1,10 @@
 # Cloudomium Middleware
 
-This project is a set of opinionated tools for easier serverless development on AWS Lambda.
+This project is a set of opinionated simple tools for easier serverless development on AWS Lambda.
 
 ## Middleware Supported Organizers for AWS Lambda
 
-There are different organizer classes for various needs, such as **CloudomiumHttpLambda**, **CloudomiumSqsLambda**, **CloudomiumKinesisLambda**, etc.
+There are different organizer classes for various needs, such as **HttpLambda**, **SqsLambda**, **KinesisLambda**, etc.
 
 ### Before / After The Lambda Handler
 
@@ -26,20 +26,20 @@ To define the handler function, there is a method called **execute**
 | onError | function | false | a function that implements **ErrorHandler** interface |
 
 ```typescript
-const handler = new CloudomiumHttpLambda()
+const handler = new HttpLambda()
     .before(middlewareA())
     .after(middlewareB())
     .execute(async (event, context) => {
         return { statusCode: 204 }
     })
 
-const handler = new CloudomiumSqsLambda()
+const handler = new SqsLambda()
     .before(middlewareC())
     .execute(async (event, context) => {
         return { batchItemFailures: [] }
     })
 
-const handler = new CloudomiumKinesisLambda()
+const handler = new KinesisLambda()
     .before(middlewareC())
     .execute(async (event, context) => {
         // void
@@ -67,9 +67,9 @@ While the jwt token is for authentication part, **check** function is for author
 
 ```typescript
 import jwt from 'jsonwebtoken'
-import { CloudomiumHttpLambda } from '@cloudomium/middleware'
+import { HttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumHttpLambda()
+const handler = new HttpLambda()
     .before(authMiddleware({ jwt, secret: 'my secret', mustSignedIn: true }), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
@@ -89,9 +89,9 @@ This middleware adds a simple CORS support to the response.
 | credentials | boolean | false | flag to allow credentials |
 
 ```typescript
-import { CloudomiumHttpLambda } from '@cloudomium/middleware'
+import { HttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumHttpLambda()
+const handler = new HttpLambda()
     .before(corsMiddleware({ origins: ['http://localhost:9000'] }), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
@@ -108,9 +108,9 @@ This middleware adds a support for JSON payload.
 | compressed | boolean | false | flag for gzip compression |
 
 ```typescript
-import { CloudomiumHttpLambda } from '@cloudomium/middleware'
+import { HttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumHttpLambda()
+const handler = new HttpLambda()
     .before(jsonMiddleware(), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
@@ -130,9 +130,9 @@ This middleware adds a validation support for input and / or output data
 | onError | function | false | Error handling function |
 
 ```typescript
-import { CloudomiumHttpLambda } from '@cloudomium/middleware'
+import { HttpLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumHttpLambda()
+const handler = new HttpLambda()
     .before(validate({ body: z.object({ name: z.string() }) }), (error, type) => console.error(type, error))
     .execute(async (event, context) => {
         return { statusCode: 204 }
@@ -148,10 +148,26 @@ This middleware manages the context flag for empty event loop behavior
 | wait | boolean | false | wait flag |
 
 ```typescript
-import { CloudomiumSqsLambda } from '@cloudomium/middleware'
+import { SqsLambda } from '@cloudomium/middleware'
 
-const handler = new CloudomiumSqsLambda()
+const handler = new SqsLambda()
     .before(callbackWaitsForEmptyEventLoopMiddleware(), (error, type) => console.error(type, error))
+    .execute(async (event, context) => {
+        return { batchItemFailures: [] }
+    })
+```
+
+## Attaching Metadata
+
+You can define various settings and attach them to your Lambda organizer by calling metadata function as following.
+These configurations might be useful for other Cloudomium libraries.
+
+```typescript
+import { ResourceType, SqsLambda } from '@cloudomium/middleware'
+
+const handler = new SqsLambda()
+    .metadata(ResourceType.Lambda.FUNCTION, { memorySize: 128, timeout: 30 })
+    .metadata('somethingElse', otherConfiguration)
     .execute(async (event, context) => {
         return { batchItemFailures: [] }
     })

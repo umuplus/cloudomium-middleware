@@ -1,7 +1,7 @@
 {
     "name": "@cloudomium/middleware",
-    "version": "0.4.0",
-    "description": "a set of opinionated tools for easier serverless development on AWS",
+    "version": "0.5.0",
+    "description": "a set of opinionated simple tools for easier serverless development on AWS",
     "license": "MIT",
     "repository": {
         "type": "git",

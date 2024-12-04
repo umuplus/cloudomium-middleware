@@ -5,12 +5,12 @@ import { SqsBatchEvent, SqsBatchRecord, SqsBatchResponse } from '../types/sqs'
 
 /**
  * Lambda organizer with middleware support for SQS events
- * @class CloudomiumSqsLambda
+ * @class SqsLambda
  * @template CM - Message type
  * @template CC - Context type
- * @example new CloudomiumSqsLambda<MyMessage, SqsEvent, Context>()
+ * @example new SqsLambda<MyMessage, Context>()
  */
-export class CloudomiumSqsLambda<CM = unknown, CC = unknown> extends CloudomiumLambda<SqsBatchEvent<CM>, CC, SqsBatchResponse> {
+export class SqsLambda<CM = unknown, CC = unknown> extends CloudomiumLambda<SqsBatchEvent<CM>, CC, SqsBatchResponse> {
     /**
      * Assigns the handler function
      * @param {Handler<CM, CC, SqsBatchResponse>} handler - Handler to be executed for each record

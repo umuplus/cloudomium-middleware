@@ -3,13 +3,13 @@ import { ErrorHandler, Handler } from '../types/middleware'
 
 /**
  * Lambda organizer with middleware support for HTTP events
- * @class CloudomiumHttpLambda
+ * @class HttpLambda
  * @template CE - HTTP Event type
  * @template CC - Context type
  * @template CR - Response type
- * @example new CloudomiumHttpLambda<ApiGatewayProxyEventV2, Context, ApiGatewayProxyResultV2>()
+ * @example new HttpLambda<ApiGatewayProxyEventV2, Context, ApiGatewayProxyResultV2>()
  */
-export class CloudomiumHttpLambda<CE = unknown, CC = unknown, CR = unknown> extends CloudomiumLambda<CE, CC, CR> {
+export class HttpLambda<CE = unknown, CC = unknown, CR = unknown> extends CloudomiumLambda<CE, CC, CR> {
     /**
      * Assigns the handler function
      * @param {Handler<CE, CC, CR>} handler - Handler to be executed
