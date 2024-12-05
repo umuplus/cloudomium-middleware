@@ -5,6 +5,7 @@ import authMiddleware from './middlewares/auth'
 import httpValidatorMiddleware from './middlewares/http-validator'
 
 
+export * from './organizers/dynamodb'
 export * from './organizers/http'
 export * from './organizers/kinesis'
 export * from './organizers/s3'

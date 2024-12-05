@@ -1,7 +1,7 @@
-enum DynamoDBResourceType {
-    'TABLE' = 'DYNAMODB_TABLE',
-    'STREAM' = 'DYNAMODB_STREAM',
-    'EVENT_SOURCE_MAPPING' = 'DYNAMODB_EVENT_SOURCE_MAPPING',
+enum DynamodbResourceType {
+    'TABLE' = 'DYNAMOdb_TABLE',
+    'STREAM' = 'DYNAMOdb_STREAM',
+    'EVENT_SOURCE_MAPPING' = 'DYNAMOdb_EVENT_SOURCE_MAPPING',
 }
 
 enum KinesisResourceType {
@@ -24,7 +24,7 @@ enum SqsResourceType {
 }
 
 export const ResourceType = {
-    DynamoDB: DynamoDBResourceType,
+    Dynamodb: DynamodbResourceType,
     Kinesis: KinesisResourceType,
     Lambda: LambdaResourceType,
     S3: S3ResourceType,
