@@ -13,9 +13,9 @@ test('s3 lambda handler with empty records', async () => {
 
 test('s3 lambda handler with records', async () => {
     const handler = new S3Lambda().before(callbackWaitsForEmptyEventLoopMiddleware()).execute(async (event: any, context: any) => {
-        assert.equal(event.a, '1')
+        assert.equal(event.s3.a, '1')
         assert.equal(context.callbackWaitsForEmptyEventLoop, false)
-        return event.b
+        return event.s3.b
     })
     const response = await handler({ Records: [ { s3: { a: '1', b: '2' } } ] }, {})
     assert.equal(response, '2')

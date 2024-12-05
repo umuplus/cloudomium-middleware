@@ -37,7 +37,7 @@ export class S3Lambda<CM = unknown, CC = unknown> extends CloudomiumLambda<S3Bat
 
                 for (const record of event.Records) {
                     try {
-                        response = await handler(record.s3, context)
+                        response = await handler(record, context)
                     } catch (e) {
                         const err = e as Error
                         if (onError) return onError(err)
