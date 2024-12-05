@@ -9,6 +9,7 @@ export * from './organizers/dynamodb'
 export * from './organizers/http'
 export * from './organizers/kinesis'
 export * from './organizers/s3'
+export * from './organizers/sns'
 export * from './organizers/sqs'
 
 export * from './types/aws'

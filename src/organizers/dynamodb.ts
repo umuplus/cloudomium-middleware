@@ -7,7 +7,7 @@ import { DynamodbStreamEvent } from '../types/dynamodb'
  * @class DynamodbLambda
  * @template CM - Message type
  * @template CC - Context type
- * @example new DynamodbLambda<MyMessage, Context>()
+ * @example new DynamodbLambda<DynamodbEventRecord, Context>()
  */
 export class DynamodbLambda<CM = unknown, CC = unknown> extends CloudomiumLambda<DynamodbStreamEvent<CM>, CC, void> {
     /**
